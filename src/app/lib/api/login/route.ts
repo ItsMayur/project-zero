@@ -1,5 +1,7 @@
+"use server";
 import { NextResponse } from "next/server";
 import { db } from "../../utils/db";
+import { encrypt, decrypt } from "./../../auth/session";
 import { compare } from "bcrypt";
 
 async function checkUser(email: string, password: string) {
@@ -8,9 +10,13 @@ async function checkUser(email: string, password: string) {
   });
   if (typeof user?.password_hash === "string") {
     const passwordSame = await compare(password, user.password_hash);
-    return passwordSame;
+    if (passwordSame) {
+      const token = await encrypt(user.username, user.id);
+
+      return [passwordSame, token];
+    }
   }
-  return false;
+  return [false, ""];
 }
 
 export async function POST(req: Request) {
@@ -37,7 +43,8 @@ export async function POST(req: Request) {
     // Checking the hash password with given password
 
     const isPasswordSame = await checkUser(body.email, body.password);
-    if (!isPasswordSame) {
+
+    if (!isPasswordSame[0]) {
       return NextResponse.json(
         {
           user: null,
@@ -50,6 +57,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         message: "LOGGED IN SUCCESSFULLY",
+        token: isPasswordSame[1],
       },
       { status: 200 }
     );
