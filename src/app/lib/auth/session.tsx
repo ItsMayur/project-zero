@@ -12,4 +12,5 @@ export const encrypt = async (username: string, user_id: number) => {
 
 export const decrypt = (token: string) => {
   var decoded = jwt.verify(token, "Private-token");
+  return decoded;
 };
