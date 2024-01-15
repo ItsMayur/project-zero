@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { db } from "../../utils/db";
 import { hash } from "bcrypt";
+import { encrypt } from "../../auth/session";
 
 interface USER {
   username: string;
   email: string;
   first_name: string;
-  last_name: string;
+  last_name?: string;
   password_hash: string;
   bio: string;
   profile_pic: string;
@@ -16,8 +17,6 @@ interface USER {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    let user_role: String = "USER";
-
     // CREATING USER FROM THE USER INPUT DATA
 
     // USER VALIDATIONS
@@ -58,9 +57,9 @@ export async function POST(req: Request) {
       first_name: body.first_name,
       last_name: body.last_name,
       password_hash: hashedPass,
-      bio: body.bio,
-      profile_pic: body.profile_pic,
-      role: body.role,
+      bio: "",
+      profile_pic: "",
+      role: "USER",
     };
 
     const newUser = await db.user.create({
@@ -76,9 +75,11 @@ export async function POST(req: Request) {
       },
     });
 
+    const token = await encrypt(newUser.username, newUser.id);
+
     return NextResponse.json(
       {
-        user: newUser,
+        token: token,
         message: "USER CREATED SUCESSFULLY",
       },
       { status: 201 }
