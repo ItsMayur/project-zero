@@ -11,15 +11,42 @@ datasource db {
 }
 
 model user {
-  id            Int      @id @default(autoincrement())
-  username      String   @unique @db.VarChar(255)
-  email         String   @unique
-  first_name    String
-  last_name     String
-  password_hash String
-  bio           String
-  profile_pic   String
-  role          String
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
+  id              Int               @id @default(autoincrement())
+  username        String            @unique @db.VarChar(255)
+  email           String            @unique
+  first_name      String
+  last_name       String?
+  password_hash   String
+  bio             String
+  profile_pic     String
+  role            String
+  created_at      DateTime          @default(now())
+  updated_at      DateTime          @updatedAt
+  product         product[]
+  productwishlist productwishlist[]
+}
+
+model product {
+  id                 Int               @id @default(autoincrement())
+  seller             user              @relation(fields: [seller_id], references: [id])
+  seller_id          Int
+  title              String
+  discription        String
+  price              Int
+  quantity_available Int
+  categories         Json
+  images             Json
+  created_at         DateTime          @default(now())
+  updated_at         DateTime          @updatedAt
+  productwishlist    productwishlist[]
+}
+
+model productwishlist {
+  product    product @relation(fields: [product_id], references: [id])
+  product_id Int
+  user       user    @relation(fields: [user_id], references: [id])
+  user_id    Int
+  quantity   Int
+
+  @@id([product_id, user_id])
 }

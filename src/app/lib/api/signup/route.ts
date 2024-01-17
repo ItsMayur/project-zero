@@ -7,7 +7,7 @@ interface USER {
   username: string;
   email: string;
   first_name: string;
-  last_name?: string;
+  last_name: string;
   password_hash: string;
   bio: string;
   profile_pic: string;
@@ -50,6 +50,7 @@ export async function POST(req: Request) {
     }
 
     let hashedPass: string = await hash(body.password, 10);
+    console.log(body.last_name);
 
     const user: USER = {
       username: body.username,
@@ -75,7 +76,7 @@ export async function POST(req: Request) {
       },
     });
 
-    const token = await encrypt(newUser.username, newUser.id);
+    const token = await encrypt(newUser.username, newUser.id, user.role);
 
     return NextResponse.json(
       {

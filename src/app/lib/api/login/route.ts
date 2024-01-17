@@ -11,7 +11,7 @@ async function checkUser(email: string, password: string) {
   if (typeof user?.password_hash === "string") {
     const passwordSame = await compare(password, user.password_hash);
     if (passwordSame) {
-      const token = await encrypt(user.username, user.id);
+      const token = await encrypt(user.username, user.id, user.role);
 
       return [passwordSame, token];
     }

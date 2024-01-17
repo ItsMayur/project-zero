@@ -1,9 +1,13 @@
 var jwt = require("jsonwebtoken");
 
-export const encrypt = async (username: string, user_id: number) => {
+export const encrypt = async (
+  username: string,
+  user_id: number,
+  role: string
+) => {
   var tokenString: string = "";
   var token = jwt.sign(
-    { username: username, user_id: user_id },
+    { username: username, user_id: user_id, role: role },
     "Private-token"
   );
 
