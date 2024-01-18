@@ -24,6 +24,7 @@ model user {
   updated_at      DateTime          @updatedAt
   product         product[]
   productwishlist productwishlist[]
+  productreviews  productreviews[]
 }
 
 model product {
@@ -39,6 +40,7 @@ model product {
   created_at         DateTime          @default(now())
   updated_at         DateTime          @updatedAt
   productwishlist    productwishlist[]
+  productreviews     productreviews[]
 }
 
 model productwishlist {
@@ -49,4 +51,16 @@ model productwishlist {
   quantity   Int
 
   @@id([product_id, user_id])
+}
+
+model productreviews {
+  user          user     @relation(fields: [user_id], references: [id])
+  user_id       Int
+  product       product  @relation(fields: [reviewable_id], references: [id])
+  reviewable_id Int
+  rating        Json
+  comment       String
+  created_at    DateTime @default(now())
+
+  @@id([user_id, reviewable_id])
 }
