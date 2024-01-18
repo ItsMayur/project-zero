@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/app/lib/utils/db";
 import { cookies } from "next/headers";
 import { decrypt } from "@/app/lib/auth/session";
+import { RatingCalculator } from "@/app/lib/utils/review";
 
 interface productreview {
   user_id: number;
@@ -21,6 +22,7 @@ interface productreview {
 }
 
 export async function POST(req: Request) {
+  RatingCalculator(3);
   try {
     const body = await req.json();
     const cookieList = cookies();
