@@ -12,8 +12,12 @@ interface Product {
   };
   quantity: number;
 }
+const redirectURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000/marketplace/buy_product"
+    : "https://stripe-checkout-next-js-demo.vercel.app";
 
-async function CreateStripeSession(item: Product) {
+export async function CreateStripeSession(item: Product, product_id: number) {
   const NewProductRequest = {
     line_items: [
       {
@@ -30,13 +34,19 @@ async function CreateStripeSession(item: Product) {
       },
     ],
     mode: "payment",
-    success_url:
-      "https://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}",
-    cancel_url: "https://localhost:3000/cancel",
+    success_url: redirectURL + "/success?itineraryId=" + product_id,
+    cancel_url: redirectURL + "?status=cancel",
   };
 
   const session = await stripe.checkout.sessions.create(NewProductRequest);
   return session.id;
 }
 
-export default CreateStripeSession;
+export async function constructStripeEvent(
+  body: any,
+  signature: any,
+  secret: any
+) {
+  const event = await stripe.webhooks.constructEvent(body, signature, secret);
+  return event;
+}

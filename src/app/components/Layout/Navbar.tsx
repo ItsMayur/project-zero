@@ -7,7 +7,7 @@ const Navbar = () => {
     <div className="z-1 fixed w-screen bottom-0 bg-themeColor1">
       <ul className="flex items-center justify-evenly py-5">
         <li>
-          <Link href="">
+          <Link href="/">
             <svg
               width="20"
               height="20"
@@ -32,7 +32,7 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link href="">
+          <Link href="/marketplace">
             <svg
               width="20"
               height="20"
