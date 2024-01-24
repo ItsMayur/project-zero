@@ -2,7 +2,9 @@
 import { useSearchParams } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import ReviewsTab from "@/app/components/Marketplace/ReviewsTab";
+import AddReview from "@/app/components/Marketplace/AddReview";
 
 const page = () => {
   // CONSTANTS
@@ -10,6 +12,7 @@ const page = () => {
     "pk_test_51OaZCuSGbOR3OGLo9ULcrJfaYex5J0QFjxGjFUPJWEfueTUddDRMA9KshzuSa3yAnpIIyHiS9NlsxGmIX6jnsK6900sHjoZgAb"
   );
   const status = useSearchParams().get("status");
+
   const [loading, setLoading] = useState(false);
   const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
   const [product, setProduct] = useState({
@@ -43,25 +46,7 @@ const page = () => {
       console.log(error);
     }
   };
-  //   REVIEW FETCHING FUNCTION
-  const getReviews = async (product_id: string) => {
-    try {
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          product_id: product_id,
-        }),
-      };
-      const response = await fetch("/lib/api/marketplace/get_product", options);
-      const product = await response.json();
-      setProduct(product);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   //   ADDING PRODUCT TO CART
   const add_cart = async () => {
     try {
@@ -151,7 +136,12 @@ const page = () => {
           </div>
         </div>
         <div>
+          <h3>Add Review</h3>
+          <AddReview product_id={product.id} />
+        </div>
+        <div>
           <h3>Reviews</h3>
+          <ReviewsTab />
         </div>
       </div>
     </div>

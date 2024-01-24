@@ -22,7 +22,6 @@ interface productreview {
 }
 
 export async function POST(req: Request) {
-  RatingCalculator(3);
   try {
     const body = await req.json();
     const cookieList = cookies();

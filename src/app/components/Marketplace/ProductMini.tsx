@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-const ProductMini = (props) => {
+const ProductMini = () => {
   const product_id = 3;
   const router = useRouter();
   const goto_product = () => {
