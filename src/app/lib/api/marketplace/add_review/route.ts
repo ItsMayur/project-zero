@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import { db } from "@/app/lib/utils/db";
 import { cookies } from "next/headers";
 import { decrypt } from "@/app/lib/auth/session";
-import { RatingCalculator } from "@/app/lib/utils/review";
 
 interface productreview {
   user_id: number;
@@ -25,6 +24,12 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const cookieList = cookies();
+
+    const hasToken: boolean = cookieList.has("token");
+
+    if (!hasToken) {
+      return NextResponse.json({ message: "Invalid token" }, { status: 404 });
+    }
     const token = cookieList.get("token");
     let tokenDetails;
     if (typeof token?.value == "string") {

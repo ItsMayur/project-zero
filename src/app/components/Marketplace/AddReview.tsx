@@ -10,10 +10,10 @@ const AddReview = (props: { product_id: number }) => {
 
   const nextReview = () => {
     const ReviewBox = document.getElementById("ReviewBox");
-    if (Packaging != 0) {
+    if (Packaging && Value && Quality && Service) {
       submitReview();
     } else {
-      console.log("Please Fill the review form ");
+      alert("Please enter all review feilds");
     }
   };
 
@@ -35,7 +35,7 @@ const AddReview = (props: { product_id: number }) => {
           comment: Comment,
         }),
       };
-      const response = await fetch("/lib/api/marketplace/add_cart", options);
+      const response = await fetch("/lib/api/marketplace/add_review", options);
       console.log(await response.json());
     } catch (error) {
       console.log(error);
@@ -46,11 +46,11 @@ const AddReview = (props: { product_id: number }) => {
   }, []);
   return (
     <div>
-      <ul className="flex overflow-scroll" id="ReviewBox">
+      <ul className="flex overflow-scroll my-6" id="ReviewBox">
         <li className=" w-100%  mx-2">
-          <div className="w-screen text-center px-8 space-y-2">
+          <div className="w-screen text-center px-8 space-y-4 ">
             <h3 className="text-bold">Value</h3>
-            <div className="flex justify-evenly">
+            <div className="flex justify-evenly ">
               <div
                 onClick={() => {
                   setValue(1);
@@ -92,7 +92,7 @@ const AddReview = (props: { product_id: number }) => {
         <li className=" w-100%   mx-2">
           <div className="w-screen text-center px-8 space-y-2">
             <h3 className="text-bold">Quality</h3>
-            <div className="flex justify-evenly">
+            <div className="flex justify-evenly ">
               <div
                 onClick={() => {
                   setQuality(1);
@@ -134,7 +134,7 @@ const AddReview = (props: { product_id: number }) => {
         <li className=" w-100% mx-2">
           <div className="w-screen text-center px-8 space-y-2">
             <h3 className="text-bold">Service</h3>
-            <div className="flex justify-evenly">
+            <div className="flex justify-evenly ">
               <div
                 onClick={() => {
                   setService(1);
@@ -176,7 +176,7 @@ const AddReview = (props: { product_id: number }) => {
         <li className=" w-100% mx-2">
           <div className="w-screen text-center px-8 space-y-2">
             <h3 className="text-bold">Packaging</h3>
-            <div className="flex justify-evenly">
+            <div className="flex justify-evenly ">
               <div
                 onClick={() => {
                   setPackaging(1);
@@ -227,8 +227,9 @@ const AddReview = (props: { product_id: number }) => {
           </div>
         </li>
       </ul>
-      <div className="text-textColor3" onClick={nextReview}>
-        {1 ? "Next" : "Submit"}
+      <div className="text-textColor3 text-center" onClick={nextReview}>
+        {/* {1 ? "Next" : "Submit"} */}
+        Submit
       </div>
     </div>
   );

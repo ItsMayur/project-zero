@@ -25,7 +25,7 @@ const Login = () => {
       };
       const response = await fetch("/lib/api/login", options);
       response.json().then((res) => {
-        document.cookie = `token=${res.token}`;
+        document.cookie = `token=${res.token}; Path=/;`;
       });
 
       if (response.status !== 200) throw new Error("Can't login");
