@@ -40,9 +40,7 @@ export async function POST(req: Request) {
       },
     });
 
-    const Reviews = { ...ProductReviews };
-
-    return NextResponse.json({ Reviews }, { status: 200 });
+    return NextResponse.json({ Reviews: ProductReviews }, { status: 200 });
   } catch (error) {
     console.log(error);
   }

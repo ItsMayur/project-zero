@@ -1,11 +1,11 @@
 import React from "react";
-import Searchbar from "@/app/components/Marketplace/Searchbar";
+import MarketNavbar from "@/app/components/Marketplace/MarketNavbar";
 import ProductMini from "../components/Marketplace/ProductMini";
 
 const page = () => {
   return (
     <div className="bg-themeColor2">
-      <Searchbar />
+      <MarketNavbar />
       <div className="space-y-4 ">
         <ProductMini />
         <ProductMini />

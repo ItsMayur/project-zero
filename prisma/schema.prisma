@@ -67,3 +67,16 @@ model productreviews {
 
   @@id([user_id, reviewable_id])
 }
+
+model courses {
+  id             Int      @id @default(autoincrement())
+  instructure_id Int
+  title          String
+  discription    String
+  price          Int
+  level          String
+  categories     Json
+  lessons        Json
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+}

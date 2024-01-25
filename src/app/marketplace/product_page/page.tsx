@@ -120,7 +120,7 @@ const page = () => {
     <div className="bg-themeColor1 text-text1 mb-[50px]">
       <div className="flex overflow-x-scroll w-screen snap-x snap-proximity">
         {product.images.image_url.map((res, idx) => {
-          return <img src={res} alt="" className="snap-center" />;
+          return <img src={res} key={idx} className="snap-center" />;
         })}
       </div>
       <div className="px-4 py-6 space-y-2">
@@ -131,13 +131,13 @@ const page = () => {
         </div>
         <div className="space-y-1">
           <div
-            className="bg-themeColor3 text-text1 text-center py-2"
+            className="bg-themeColor3 text-text2 text-center py-2"
             onClick={add_cart}
           >
             Add to cart
           </div>
           <div
-            className="bg-themeColor3 text-text1 text-center py-2"
+            className="bg-themeColor3 text-text2 text-center py-2"
             onClick={buy_now}
           >
             {loading ? "Processing" : "Buy now"}
@@ -148,7 +148,6 @@ const page = () => {
           <AddReview product_id={product.id} />
         </div>
         <div>
-          <h3>Reviews</h3>
           <ReviewsTab Rating={Rating.current} />
         </div>
       </div>
