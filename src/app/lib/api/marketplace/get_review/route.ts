@@ -6,16 +6,14 @@ import { JsonValue } from "@prisma/client/runtime/library";
 interface productreview {
   user_id: number;
   reviewable_id: number;
-  rating: {
-    // Quality of product
-    quality: number;
-    // Value for money
-    value: number;
-    // Customer service {Delivery timing,Complain solving}
-    service: number;
-    // Packaging
-    packaging: number;
-  };
+  // Quality of product
+  quality: number;
+  // Value for money
+  value: number;
+  // Customer service {Delivery timing,Complain solving}
+  service: number;
+  // Packaging
+  packaging: number;
   comment: string;
 }
 

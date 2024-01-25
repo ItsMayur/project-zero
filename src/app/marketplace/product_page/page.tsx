@@ -16,14 +16,21 @@ const page = () => {
   const [loading, setLoading] = useState(false);
   const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
   const [product, setProduct] = useState({
-    id: "",
-    seller_id: "",
+    id: 0,
+    seller_id: 0,
     title: "",
     discription: "",
     price: "",
     quantity_available: "",
     categories: { category: [""] },
     images: { image_url: [""] },
+  });
+  const Rating = useRef({
+    total: 0,
+    packaging: 0,
+    quality: 0,
+    service: 0,
+    value: 0,
   });
   const searchParams = useSearchParams();
 
@@ -40,8 +47,9 @@ const page = () => {
         }),
       };
       const response = await fetch("/lib/api/marketplace/get_product", options);
-      const product = await response.json();
-      setProduct(product);
+      const data = await response.json();
+      setProduct(data.product);
+      Rating.current = data.rating;
     } catch (error) {
       console.log(error);
     }
@@ -141,7 +149,7 @@ const page = () => {
         </div>
         <div>
           <h3>Reviews</h3>
-          <ReviewsTab />
+          <ReviewsTab Rating={Rating.current} />
         </div>
       </div>
     </div>

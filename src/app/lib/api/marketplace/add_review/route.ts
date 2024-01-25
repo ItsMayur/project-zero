@@ -7,16 +7,15 @@ import { decrypt } from "@/app/lib/auth/session";
 interface productreview {
   user_id: number;
   reviewable_id: number;
-  rating: {
-    // Quality of product
-    quality: number;
-    // Value for money
-    value: number;
-    // Customer service {Delivery timing,Complain solving}
-    service: number;
-    // Packaging
-    packaging: number;
-  };
+  // Quality of product
+  quality: number;
+  // Value for money
+  value: number;
+  // Customer service {Delivery timing,Complain solving}
+  service: number;
+  // Packaging
+  packaging: number;
+
   comment: string;
 }
 
@@ -39,12 +38,10 @@ export async function POST(req: Request) {
     const productreview: productreview = {
       user_id: tokenDetails.user_id,
       reviewable_id: body.reviewable_id,
-      rating: {
-        quality: body.rating.quality,
-        value: body.rating.value,
-        service: body.rating.service,
-        packaging: body.rating.packaging,
-      },
+      quality: body.quality,
+      value: body.value,
+      service: body.service,
+      packaging: body.packaging,
       comment: body.comment,
     };
 
@@ -75,12 +72,10 @@ export async function POST(req: Request) {
           reviewable_id: productreview.reviewable_id,
         },
         data: {
-          rating: {
-            quality: productreview.rating.quality,
-            value: productreview.rating.value,
-            service: productreview.rating.service,
-            packaging: productreview.rating.packaging,
-          },
+          quality: productreview.quality,
+          value: productreview.value,
+          service: productreview.service,
+          packaging: productreview.packaging,
           comment: productreview.comment,
         },
       });
@@ -92,12 +87,10 @@ export async function POST(req: Request) {
       data: {
         user_id: productreview.user_id,
         reviewable_id: productreview.reviewable_id,
-        rating: {
-          quality: productreview.rating.quality,
-          value: productreview.rating.value,
-          service: productreview.rating.service,
-          packaging: productreview.rating.packaging,
-        },
+        quality: productreview.quality,
+        value: productreview.value,
+        service: productreview.service,
+        packaging: productreview.packaging,
         comment: productreview.comment,
       },
     });

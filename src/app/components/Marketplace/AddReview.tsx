@@ -26,12 +26,10 @@ const AddReview = (props: { product_id: number }) => {
         },
         body: JSON.stringify({
           reviewable_id: props.product_id,
-          rating: {
-            quality: Quality,
-            value: Value,
-            service: Service,
-            packaging: Packaging,
-          },
+          quality: Quality,
+          value: Value,
+          service: Service,
+          packaging: Packaging,
           comment: Comment,
         }),
       };
@@ -41,9 +39,7 @@ const AddReview = (props: { product_id: number }) => {
       console.log(error);
     }
   };
-  useEffect(() => {
-    nextReview();
-  }, []);
+
   return (
     <div>
       <ul className="flex overflow-scroll my-6" id="ReviewBox">

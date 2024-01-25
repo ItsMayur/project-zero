@@ -58,7 +58,10 @@ model productreviews {
   user_id       Int
   product       product  @relation(fields: [reviewable_id], references: [id])
   reviewable_id Int
-  rating        Json
+  quality       Int
+  value         Int
+  service       Int
+  packaging     Int
   comment       String
   created_at    DateTime @default(now())
 
