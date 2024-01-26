@@ -35,7 +35,7 @@ const page = () => {
           token: token,
         }),
       };
-      const response = await fetch("/lib/api/profile", options);
+      const response = await fetch("/lib/api/profile/user_data", options);
       response.json().then((res) => {
         if (res.username === undefined) {
           console.log(res);

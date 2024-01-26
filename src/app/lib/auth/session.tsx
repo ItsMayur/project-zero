@@ -5,11 +5,11 @@ export const encrypt = async (
   user_id: number,
   role: string
 ) => {
-  var tokenString: string = "";
   var token = jwt.sign(
     { username: username, user_id: user_id, role: role },
     "Private-token"
   );
+  console.log(token);
 
   return token;
 };

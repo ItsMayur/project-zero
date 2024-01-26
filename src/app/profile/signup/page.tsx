@@ -33,7 +33,7 @@ const Login = () => {
           password: password.current,
         }),
       };
-      const response = await fetch("/lib/api/signup", options);
+      const response = await fetch("/lib/api/profile/signup", options);
       response.json().then((res) => {
         console.log(res);
 

@@ -25,6 +25,8 @@ model user {
   product         product[]
   productwishlist productwishlist[]
   productreviews  productreviews[]
+  coursewishlist  coursewishlist[]
+  coursereview    coursereview[]
 }
 
 model product {
@@ -69,7 +71,7 @@ model productreviews {
 }
 
 model courses {
-  id             Int      @id @default(autoincrement())
+  id             Int              @id @default(autoincrement())
   instructure_id Int
   title          String
   discription    String
@@ -77,6 +79,32 @@ model courses {
   level          String
   categories     Json
   lessons        Json
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
+  created_at     DateTime         @default(now())
+  updated_at     DateTime         @updatedAt
+  coursewishlist coursewishlist[]
+  coursereview   coursereview[]
+}
+
+model coursewishlist {
+  course    courses @relation(fields: [course_id], references: [id])
+  course_id Int
+  user      user    @relation(fields: [user_id], references: [id])
+  user_id   Int
+
+  @@id([course_id, user_id])
+}
+
+model coursereview {
+  user         user    @relation(fields: [user_id], references: [id])
+  user_id      Int
+  course       courses @relation(fields: [course_id], references: [id])
+  course_id    Int
+  content      Int
+  presentation Int
+  platform     Int
+
+  comment    String
+  created_at DateTime @default(now())
+
+  @@id([user_id, course_id])
 }

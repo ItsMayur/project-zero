@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { db } from "../../utils/db";
-import { hash } from "bcrypt";
-import { decrypt } from "../../auth/session";
+import { db } from "../../../utils/db";
+import { decrypt } from "../../../auth/session";
 
 export async function POST(req: Request) {
   try {

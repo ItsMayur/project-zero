@@ -23,7 +23,7 @@ const Login = () => {
           password: password.current,
         }),
       };
-      const response = await fetch("/lib/api/login", options);
+      const response = await fetch("/lib/api/profile/login", options);
       response.json().then((res) => {
         document.cookie = `token=${res.token}; Path=/;`;
       });

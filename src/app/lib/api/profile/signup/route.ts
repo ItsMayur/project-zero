@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { db } from "../../utils/db";
+import { db } from "../../../utils/db";
 import { hash } from "bcrypt";
-import { encrypt } from "../../auth/session";
+import { encrypt } from "../../../auth/session";
 
 interface USER {
   username: string;

@@ -28,13 +28,16 @@ const page = () => {
           cartItems.push(Item);
         });
       }
+      if (cartItems.length != 0) {
+        setIsCartFetched(true);
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    get_cart_items().then((res) => setIsCartFetched(true));
+    get_cart_items();
   }, []);
 
   return (

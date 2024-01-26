@@ -1,7 +1,7 @@
 "use server";
 import { NextResponse } from "next/server";
-import { db } from "../../utils/db";
-import { encrypt, decrypt } from "./../../auth/session";
+import { db } from "../../../utils/db";
+import { encrypt, decrypt } from "../../../auth/session";
 import { compare } from "bcrypt";
 
 async function checkUser(email: string, password: string) {
@@ -11,6 +11,7 @@ async function checkUser(email: string, password: string) {
   if (typeof user?.password_hash === "string") {
     const passwordSame = await compare(password, user.password_hash);
     if (passwordSame) {
+      console.log(user.username);
       const token = await encrypt(user.username, user.id, user.role);
 
       return [passwordSame, token];
