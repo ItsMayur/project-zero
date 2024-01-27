@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     const isPaid = true;
     const Course = await db.courses.findUnique({
       where: {
-        id: body.course_id,
+        id: Number(body.course_id),
       },
     });
 

@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 
 interface Course {
   instructure_id: number;
+  course_thumbnail: string;
   title: string;
   discription: string;
   price: number;
@@ -45,6 +46,7 @@ export async function POST(req: Request) {
 
     const Course: Course = {
       instructure_id: Number(tokenDetails.user_id),
+      course_thumbnail: body.course_thumbnail,
       title: body.title,
       discription: body.discription,
       price: body.price,
@@ -55,6 +57,7 @@ export async function POST(req: Request) {
     const CreatedCourse = await db.courses.create({
       data: {
         instructure_id: Course.instructure_id,
+        course_thumbnail: Course.course_thumbnail,
         title: Course.title,
         discription: Course.discription,
         price: Course.price,

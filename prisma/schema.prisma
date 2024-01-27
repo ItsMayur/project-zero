@@ -71,18 +71,19 @@ model productreviews {
 }
 
 model courses {
-  id             Int              @id @default(autoincrement())
-  instructure_id Int
-  title          String
-  discription    String
-  price          Int
-  level          String
-  categories     Json
-  lessons        Json
-  created_at     DateTime         @default(now())
-  updated_at     DateTime         @updatedAt
-  coursewishlist coursewishlist[]
-  coursereview   coursereview[]
+  id               Int              @id @default(autoincrement())
+  instructure_id   Int
+  course_thumbnail String
+  title            String
+  discription      String
+  price            Int
+  level            String
+  categories       Json
+  lessons          Json
+  created_at       DateTime         @default(now())
+  updated_at       DateTime         @updatedAt
+  coursewishlist   coursewishlist[]
+  coursereview     coursereview[]
 }
 
 model coursewishlist {

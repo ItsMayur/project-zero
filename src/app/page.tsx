@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useRouter } from "next/router";
 import Navbar from "./components/Layout/Navbar";
 
